@@ -11,7 +11,7 @@ select pro.Province_Name,
     		INNER JOIN dim_province as pro ON kab.Province_ID = pro.Province_ID
     			GROUP BY pro.Province_Name;
     			
--- menampilkan data kesejahteraan setiap kabupaten/kota di provinsi Jawa Barat (menggunakan fungsi AGGREGATE, join, group by, where, order by)
+-- menampilkan data kesejahteraan setiap kabupaten/kota di provinsi Jawa Barat (menggunakan fungsi AGGREGATE, join, where, group by)
 
 SELECT kab.Kabupaten_Name,
     SUM(dk.jumlah_prasejahtera) as prasejahtera,
@@ -24,8 +24,7 @@ SELECT kab.Kabupaten_Name,
     		INNER JOIN dim_kabupaten as kab ON dk.kabupaten_id = kab.Kabupaten_ID
     		INNER JOIN dim_province as pro ON kab.Province_ID = pro.Province_ID
    				WHERE pro.Province_Name = 'JAWA BARAT'
-    				GROUP BY kab.Kabupaten_Name
-    					order by total asc;
+    				GROUP BY kab.Kabupaten_Name;
     				
 -- menampilkan data tenaga medis beserta jumlahnya setiap provinsi Indonesia (menggunakan fungsi aggregate, join, group by)
 
@@ -37,7 +36,7 @@ SELECT pro.Province_Name, tm.tenaga_medis,
     			GROUP BY pro.Province_Name,
     					 tm.tenaga_medis;
 
--- menampilkan jumlah data tenaga medis bidan setiap kabupaten/kota untuk provinsi Jawa Timur (menggunakan fungsi aggregate, join, where, and, group by, order by)
+-- menampilkan jumlah data tenaga medis bidan setiap kabupaten/kota dan di urutkan dari terbesar ke terkecil untuk provinsi Jawa Timur (menggunakan fungsi aggregate, join, where, and, group by, order by)
     					
 SELECT kab.Kabupaten_Name, tm.tenaga_medis,
     SUM(tm.jumlah) as jumlah
@@ -47,7 +46,7 @@ SELECT kab.Kabupaten_Name, tm.tenaga_medis,
    				WHERE pro.Province_Name = 'JAWA TIMUR' AND tm.tenaga_medis = 'BIDAN'
     				GROUP BY kab.Kabupaten_Name,
  							 tm.tenaga_medis
- 								order by jumlah asc;
+ 								order by jumlah DESC;
 
 -- menampilkan data kesejahteraan setiap kabupaten/kota untuk provinsi Jawa Tengah dan di urutkan dari terkecil ke terbesar untuk jumlah prasejahtera (menggunakan fungsi aggregate, join, where, group by, order by)
 
